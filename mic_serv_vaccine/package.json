@@ -1,0 +1,9 @@
+{
+  "devDependencies": {
+    "serverless-python-requirements": "^6.0.0",
+    "serverless-wsgi": "^3.0.2"
+  },
+  "dependencies": {
+    "mongoose": "^7.5.2"
+  }
+}

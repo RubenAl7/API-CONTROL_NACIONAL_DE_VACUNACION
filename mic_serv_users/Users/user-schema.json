@@ -1,0 +1,55 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "User",
+    "type": "object",
+    "required": ["name", "lastname", "password", "ci", "email", "state", "city",  "birth", "gender"],
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "The person's first name.",
+        "default": ""
+      },
+      "lastname": {
+        "type": "string",
+        "description": "The person's lastname.",
+        "default": ""
+      },
+      "password": {
+        "type": "string",
+        "description": "Account Password.",
+        "default": ""
+      },
+      "ci": {
+        "type": "string",
+        "description": "The person's ID.",
+        "default": ""
+      },
+      "email": {
+        "type": "string",
+        "description": "The person's email.",
+        "default": ""
+      },
+      "birth": {
+        "description": "Person's birth date.",
+        "type": "string",
+        "format": "date",
+        "default": ""
+      },
+      "state": {
+        "description": "Person's state location.",
+        "type": "string",
+        "format": "date",
+        "default": ""
+      },
+      "city": {
+        "description": "Person's city location",
+        "type": "string",
+        "default": ""
+      },
+      "gender": {
+        "description": "Person's gender",
+        "type": "string",
+        "default": ""
+      }
+    }
+  }

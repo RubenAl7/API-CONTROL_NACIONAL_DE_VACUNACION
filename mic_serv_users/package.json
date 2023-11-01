@@ -1,0 +1,27 @@
+{
+  "name": "mic_serv_users",
+  "version": "1.0.0",
+  "description": "",
+  "main": "handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\""
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-sdk": "^2.1256.0",
+    "serverless": "^3.21.0",
+    "serverless-apigateway-service-proxy": "^2.2.0",
+    "serverless-domain-manager": "^6.2.0",
+    "serverless-dotenv-plugin": "^6.0.0",
+    "serverless-dynamodb-local": "^0.2.40",
+    "serverless-lift": "^1.20.2",
+    "serverless-offline": "^11.3.0",
+    "serverless-package-python-functions": "^0.7.0",
+    "serverless-pydeps": "^0.1.0"
+  },
+  "dependencies": {
+    "serverless-python-requirements": "^6.0.0",
+    "sharp": "^0.31.2"
+  }
+}

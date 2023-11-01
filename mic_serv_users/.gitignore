@@ -1,0 +1,7 @@
+node_modules
+.serverless
+.DS_Store
+nodejs.zip
+package-lock.json
+.requirements.zip
+mic_serv_users.zip

@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Phone",
+    "type": "object",
+    "required": ["phone", "code"],
+    "properties": {
+      "phone": {
+        "type": "string",
+        "description": "The person's Phone number.",
+        "default": ""
+      },
+      "code": {
+        "type": "string",
+        "description": "The SMS validation Code.",
+        "default": ""
+      }
+    }
+  }

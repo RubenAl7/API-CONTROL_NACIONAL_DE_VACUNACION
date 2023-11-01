@@ -1,0 +1,8 @@
+node_modules
+.serverless
+nodejs.zip
+package-lock.json
+.requirements.zip
+venv
+.env
+__pycache__

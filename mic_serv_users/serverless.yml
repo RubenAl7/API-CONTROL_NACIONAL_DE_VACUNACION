@@ -1,0 +1,138 @@
+service: national-vaccine-control-app
+useDotenv: true
+provider:
+  name: aws
+  runtime: python3.10
+  environment:
+    MONGO_URI: mongodb+srv://cartillauser:C4rt1ll42023@cluster0.fkuv17j.mongodb.net/
+
+package:
+  individually: true
+  patterns:
+    - "!*/**"
+
+plugins:
+  - serverless-python-requirements
+  - serverless-dotenv-plugin
+
+custom:
+  pythonRequirements:
+    usePipenv: false
+    dockerizePip: true
+    zip: true
+    slim: true
+    
+functions:
+  # TOKEN
+  verify-token:
+    handler: Token/handler.verifyToken
+    package:
+      patterns:
+        - "Token/handler.py"
+
+  # USERS
+  add-users:
+    handler: Users/addUser/handler.addUser
+    package:
+      patterns:
+        - "Users/addUser/handler.py"
+    events:
+      - http:
+          path: user
+          method: POST
+          cors: true
+          authorizer:
+            name: verify-token
+            identitySource: method.request.header.Authorization
+            resultTtlInSeconds: 0
+          request:
+            schemas:
+              application/json: ${file(Users/user-schema.json)}
+
+  # DEPENDENTS
+  add-dependent:
+    handler: Dependents/addDependent/handler.addDependent
+    package:
+      patterns:
+        - "Dependents/addDependent/handler.py"
+    events:
+      - http:
+          path: dependent
+          method: POST
+          cors: true
+          authorizer:
+            name: verify-token
+            identitySource: method.request.header.Authorization
+            resultTtlInSeconds: 0
+          request:
+            schemas:
+              application/json: ${file(Dependents/dependent-schema.json)}
+
+  # LOGIN
+  login:
+    handler: Login/login/handler.login
+    package:
+      patterns:
+        - "Login/login/handler.py"
+    events:
+      - http:
+          path: login
+          method: POST
+          cors: true
+          request:
+            schemas:
+              application/json: ${file(Login/login/login-schema.json)}
+  logout:
+    handler: Login/logout/handler.logout
+    package:
+      patterns:
+        - "Login/logout/handler.py"
+    events:
+      - http:
+          path: logout
+          method: GET
+          cors: true
+          authorizer:
+            name: verify-token
+            identitySource: method.request.header.Authorization
+            resultTtlInSeconds: 0
+  
+  # PHONE
+  send-sms:
+    handler: Phone/sendSms/handler.sendSms
+    package:
+      patterns:
+        - "Phone/sendSms/handler.py"
+    events:
+      - http:
+          path: sendsms
+          method: POST
+          request:
+            schemas:
+              application/json: ${file(Phone/sendSms/phone-schema.json)}
+  check-code:
+    handler: Phone/checkCode/handler.checkCode
+    package:
+      patterns:
+        - "Phone/checkCode/handler.py"
+    events:
+      - http:
+          path: checkcode
+          method: POST
+          request:
+            schemas:
+              application/json: ${file(Phone/checkCode/code-schema.json)}
+
+
+	
+resources:
+  Resources:
+    GatewayResponseDefault4XX:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'

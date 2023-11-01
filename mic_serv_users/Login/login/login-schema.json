@@ -1,0 +1,18 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Login",
+    "type": "object",
+    "required": ["ci", "password"],
+    "properties": {
+      "ci": {
+        "type": "string",
+        "description": "The person's ID.",
+        "default": ""
+      },
+      "password": {
+        "type": "string",
+        "description": "Account Password.",
+        "default": ""
+      }
+    }
+  }
